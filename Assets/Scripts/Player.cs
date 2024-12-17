@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -22,7 +23,9 @@ public class Player : MonoBehaviour
     public float coyoteTime = 0.3f;
     [Header("Health")]
     public float maxHealth = 3;
-    
+
+
+   
     private float coyoteTimeCounter;
     private bool isGrounded;
     private Rigidbody2D rb;
@@ -33,8 +36,11 @@ public class Player : MonoBehaviour
     private float dashCooldownTime;
     private float healthLeft;
     
+
+    
     void Start()
     {
+        
         rb = GetComponent<Rigidbody2D>();
         healthLeft = maxHealth;
     }
@@ -45,7 +51,9 @@ public class Player : MonoBehaviour
         
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
         
-        if(isGrounded){
+        if(isGrounded)
+        {
+            
             coyoteTimeCounter = coyoteTime;
             jumpLeft = maxJumps;
         }
@@ -53,7 +61,7 @@ public class Player : MonoBehaviour
             coyoteTimeCounter-= Time.deltaTime;
         }
         
-        if ((coyoteTimeCounter>0 || jumpLeft >0) && Input.GetButtonDown("Jump"))
+        if ((coyoteTimeCounter>0 || jumpLeft >0) && Input.GetKeyDown(KeyCode.Space))
         {
             var jumpVelocity = Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y * rb.gravityScale);
             
@@ -80,6 +88,8 @@ public class Player : MonoBehaviour
         }
         dashCooldownTime-=Time.deltaTime;
         //Health
+        
+
         
     }
 

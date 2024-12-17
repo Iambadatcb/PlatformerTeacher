@@ -8,19 +8,24 @@ public class Shooter : MonoBehaviour
     public Transform firePoint;
     public float shotCooldown = 0.2f;
     public AudioClip AudioClip;
+    public AudioSource hand;
     
     private float shotCooldownTime;
     private AudioSource audioSource;
 
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        audioSource = hand;
     }
 
 
     void Update()
     {
-        if(Input.GetMouseButtonDown(0)&& shotCooldownTime<=0){
+        
+        
+            
+        
+        if (Input.GetMouseButtonDown(0)&& shotCooldownTime<=0){
             
             audioSource.clip = AudioClip;
             audioSource.Play();

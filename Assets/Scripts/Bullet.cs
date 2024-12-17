@@ -2,22 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Callbacks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Bullet : MonoBehaviour
 {
+    public string scene;
     public Vector3 direction;
     public float speed = 30;
     public float lifeTime = 2;
-    
-
     public Vector2 dmgRange = new Vector2(10,20);
+    //public GameObject gameObject;
 
+
+
+    private static int count;
     private Rigidbody2D rb;
     private AudioSource audioSource;
     public AudioClip clip;
     // Start is called before the first frame update
     void Start()
     {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        count = enemies.Length;
         rb = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
     }
@@ -26,6 +32,11 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         rb.velocity = direction * speed;
+        //var health = gameObject.GetComponent<Health>();
+        if (count <= 0)
+        {
+            SceneManager.LoadScene(scene);
+        }
     }
     private void OnCollisionEnter2D(Collision2D other){
         var damage = Random.Range(dmgRange.x,dmgRange.y);
@@ -34,7 +45,10 @@ public class Bullet : MonoBehaviour
         {
             health.TakeDamage((int) damage);
         }
-
+        if (other.gameObject.tag == "Enemy" && health == null)
+        {
+            count--;
+        }
         audioSource.clip = clip;
         audioSource.Play();
         
