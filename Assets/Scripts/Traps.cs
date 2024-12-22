@@ -18,7 +18,7 @@ public class Traps : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && shotCooldownTime <= 0)
+        if (shotCooldownTime <= 0)
         {
 
             
@@ -26,7 +26,7 @@ public class Traps : MonoBehaviour
 
 
             
-            var direction = transform.position;
+            var direction = firePoint.position -transform.position;
             direction.Normalize();
 
             var bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);

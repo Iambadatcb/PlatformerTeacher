@@ -12,10 +12,11 @@ public class Bullet : MonoBehaviour
     public float lifeTime = 2;
     public Vector2 dmgRange = new Vector2(10,20);
     //public GameObject gameObject;
+    public bool enemies;
 
 
 
-    private static int count;
+    public static int enemyCount;
     private Rigidbody2D rb;
     private AudioSource audioSource;
     public AudioClip clip;
@@ -23,7 +24,7 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        count = enemies.Length;
+        enemyCount = enemies.Length;
         rb = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
     }
@@ -33,9 +34,12 @@ public class Bullet : MonoBehaviour
     {
         rb.velocity = direction * speed;
         //var health = gameObject.GetComponent<Health>();
-        if (count <= 0)
+        if(enemies)
         {
-            SceneManager.LoadScene(scene);
+            if (enemyCount <= 0)
+            {
+                SceneManager.LoadScene(scene);
+            }
         }
     }
     private void OnCollisionEnter2D(Collision2D other){
@@ -47,7 +51,7 @@ public class Bullet : MonoBehaviour
         }
         if (other.gameObject.tag == "Enemy" && health == null)
         {
-            count--;
+            enemyCount--;
         }
         audioSource.clip = clip;
         audioSource.Play();

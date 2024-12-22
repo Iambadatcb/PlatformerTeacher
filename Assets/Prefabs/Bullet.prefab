@@ -167,6 +167,7 @@ MonoBehaviour:
   speed: 30
   lifeTime: 2
   dmgRange: {x: 1, y: 2}
+  enemies: 1
   clip: {fileID: 0}
 --- !u!82 &8991660631302313143
 AudioSource:

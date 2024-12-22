@@ -24,11 +24,12 @@ public class Player : MonoBehaviour
     [Header("Health")]
     public float maxHealth = 3;
 
-
+    public string scene;
    
     private float coyoteTimeCounter;
     private bool isGrounded;
     private Rigidbody2D rb;
+    private Bullet bullet;
     private float inputX;
     private int jumpLeft;
     private bool isDashing;
@@ -40,7 +41,7 @@ public class Player : MonoBehaviour
     
     void Start()
     {
-        
+        // bullet = GetComponent<Bullet>.enemyCount;
         rb = GetComponent<Rigidbody2D>();
         healthLeft = maxHealth;
     }
@@ -89,6 +90,10 @@ public class Player : MonoBehaviour
         dashCooldownTime-=Time.deltaTime;
         //Health
         
+        // if(bullet.enemyCount<=0)
+        // {
+        //     SceneManager.LoadScene(scene);
+        // }
 
         
     }
